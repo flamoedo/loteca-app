@@ -45,8 +45,8 @@ def prediction():
     A = request.args.get('A')
     p = model.predict([prepare(H,A)])
     if p < 0:
-        return jsonify(H + ' Vence com ' + str(round(abs(p[0]),3)) + ' gols de diferença ']# + str(prepare(H,A)))
+        return jsonify(H + ' Vence com ' + str(round(abs(p[0]),3)) + ' gols de diferença ')# + str(prepare(H,A)))
     else:
-        return jsonify(A + ' Vence com ' + str(round(abs(p[0]),3)) + ' gols de diferença ']# + str(prepare(H,A)))
+        return jsonify(A + ' Vence com ' + str(round(abs(p[0]),3)) + ' gols de diferença ')# + str(prepare(H,A)))
 
 
