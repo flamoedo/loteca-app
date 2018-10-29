@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Greeting App</title>
+
+    <style>
+        * {
+            font-size: 30px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <select id="optionH">
+        <option></option>
+    </select>
+
+
+    <select id="optionA">
+        <option></option>
+    </select>
+
+    <button id="name-button">Submit name</button>
+
+    <p id="greeting"></p>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $.getJSON("/list", function (result) {
+                var optionH = $("#optionH");
+                var optionA = $("#optionA");
+                //don't forget error handling!
+                $.each(result, function (item, value) {
+                    optionH.append($("<option />").val(value).text(value));
+                    optionA.append($("<option />").val(value).text(value));
+                });
+            });
+
+        });
+
+
+
+        $("#name-button").click(function (event) {
+
+            H = $("#optionH").val()
+            A = $("#optionA").val()
+
+            $.get("/pred?H=" + H + "&A=" + A, function (response) {
+
+                $("#greeting").text(response);
+                console.log(response);
+
+            })
+
+        })
+
+
+    </script>
+
+
+</body>
+
+
+</html>
