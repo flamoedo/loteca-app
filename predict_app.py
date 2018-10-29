@@ -16,6 +16,8 @@ vocab = df['Home'].sort_values().unique()
 
 word2idx = {word: i for i, word in enumerate(vocab)}
 
+def create_app():    
+    return app
 
 def word2vector(word):
     m = np.zeros(len(word2idx))
