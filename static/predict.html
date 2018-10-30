@@ -2,68 +2,96 @@
 <html>
 
 <head>
-    <title>Greeting App</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <title>Loteca Prediction</title>
 
     <style>
-        * {
-            font-size: 30px;
-        }
+        /* .jumbotrom {
+            margin-top: 3rem !important;
+        } */
     </style>
 
 </head>
 
-
 <body>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Loteca</a>
+    </nav>
+    <br>
+    <div class="container">
+        <div class="jumbotron" style="margin-top:3rem">
+            <h1>Previsões de jogos</h1>
+            <p>Previsões de resultado dos jogos do campeonato Brasileiro</p>
+        </div>
+    </div>
 
-    <select id="optionH">
-        <option></option>
-    </select>
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-sm">
+                <label for="optionH">Time da Casa</label>
+                <select class="form-control" id="optionH">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <label for="optionA">Visitante</label>
+                <select class="form-control" id="optionA">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button id="predict-button" type="submit" class="btn btn-primary">Predict</button>
+            </div>
+        </div>
 
+    </div>
 
-    <select id="optionA">
-        <option></option>
-    </select>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Time da Casa</th>
+                    <th scope="col">Visitante</th>
+                    <th scope="col">Gols</th>
+                    <th scope="col">Resultado</th>
+                </tr>
+            </thead>
+            <tbody id="table-predictions">
+            </tbody>
+        </table>
 
-    <button id="name-button">Submit name</button>
+    </div>
 
-    <p id="greeting"></p>
-
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 
-    <script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmplPlus.min.js"></script>
 
-        $(document).ready(function () {
-            $.getJSON("/list", function (result) {
-                var optionH = $("#optionH");
-                var optionA = $("#optionA");
-                //don't forget error handling!
-                $.each(result, function (item, value) {
-                    optionH.append($("<option />").val(value).text(value));
-                    optionA.append($("<option />").val(value).text(value));
-                });
-            });
+    <script src="jscript.js"></script>
 
-        });
-
-
-
-        $("#name-button").click(function (event) {
-
-            H = $("#optionH").val()
-            A = $("#optionA").val()
-
-            $.get("/pred?H=" + H + "&A=" + A, function (response) {
-
-                $("#greeting").text(response);
-                console.log(response);
-
-            })
-
-        })
-
-
+    <script id="template">
+        <tr>
+            <td style="background-color:${Hcolor}">${H}</td>
+            <td style="background-color:${Acolor}">${A}</td>
+            <td>${p}</td>
+            <td>${resultado}</td>
+        </tr>           
     </script>
-
 
 </body>
 
